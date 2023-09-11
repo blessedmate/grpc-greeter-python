@@ -44,7 +44,11 @@ def run():
             print(delayed_reply)
 
         elif rpc_call == "4":
-            print("Not Implemented")
+            responses = stub.InteractingHello(get_client_stream_requests())
+
+            for response in responses:
+                print("InteractingHello response received: ")
+                print(response)
 
 
 if __name__ == "__main__":

@@ -34,7 +34,14 @@ class GreeterService(greet_pb2_grpc.GreeterServicer):
         return delayed_reply
 
     def InteractingHello(self, request_iterator, context):
-        return super().InteractingHello(request_iterator, context)
+        for request in request_iterator:
+            print("InteractingHello request made:")
+            print(request)
+
+            hello_reply = greet_pb2.HelloReply()
+            hello_reply.message = f"{request.greeting} {request.name}"
+
+            yield hello_reply
 
 
 def serve():
