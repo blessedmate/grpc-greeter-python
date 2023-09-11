@@ -4,6 +4,17 @@ import time
 import grpc
 
 
+def get_client_stream_requests():
+    while True:
+        name = input("Please enter a name (or nothing to stop): ")
+        if name == "":
+            break
+
+        hello_request = greet_pb2.HelloRequest(greeting="Hello", name=name)
+        yield hello_request
+        time.sleep(1)
+
+
 def run():
     with grpc.insecure_channel("localhost:50051") as channel:
         stub = greet_pb2_grpc.GreeterStub(channel)
@@ -28,7 +39,9 @@ def run():
                 print(reply)
 
         elif rpc_call == "3":
-            print("Not Implemented")
+            delayed_reply = stub.ChattyClientSaysHello(get_client_stream_requests())
+            print("ChattyClientSaysHello response received:")
+            print(delayed_reply)
 
         elif rpc_call == "4":
             print("Not Implemented")
