@@ -11,18 +11,21 @@ def run():
         print("2. ParrotSaysHello - Server Side Streaming")
         print("3. ChattyClientSaysHello - Client Side Streaming")
         print("4. InteractingHello - Both Streaming")
-        rpc_call = input("Which RPC would you like to call?")
+        rpc_call = input("Which RPC would you like to call: ")
 
-        if rpc_call == 1:
+        if rpc_call == "1":
+            hello_request = greet_pb2.HelloRequest(greeting="Bonjour", name="YouTube")
+            hello_reply = stub.SayHello(hello_request)
+            print("SayHello response received:")
+            print(hello_reply)
+
+        elif rpc_call == "2":
             print("Not Implemented")
 
-        elif rpc_call == 2:
+        elif rpc_call == "3":
             print("Not Implemented")
 
-        elif rpc_call == 3:
-            print("Not Implemented")
-
-        elif rpc_call == 4:
+        elif rpc_call == "4":
             print("Not Implemented")
 
 

@@ -8,7 +8,11 @@ import greet_pb2_grpc
 
 class GreeterService(greet_pb2_grpc.GreeterServicer):
     def SayHello(self, request, context):
-        return super().SayHello(request, context)
+        print("SayHello request made:")
+        print(request)
+        hello_reply = greet_pb2.HelloReply()
+        hello_reply.message = f"{request.greeting} {request.name}"
+        return hello_reply
 
     def ParrotSaysHello(self, request, context):
         return super().ParrotSaysHello(request, context)
