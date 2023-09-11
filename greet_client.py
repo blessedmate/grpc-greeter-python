@@ -20,7 +20,12 @@ def run():
             print(hello_reply)
 
         elif rpc_call == "2":
-            print("Not Implemented")
+            hello_request = greet_pb2.HelloRequest(greeting="Bonjour", name="YouTube")
+            hello_replies = stub.ParrotSaysHello(hello_request)
+
+            for reply in hello_replies:
+                print("ParrotSaysHello response received:")
+                print(reply)
 
         elif rpc_call == "3":
             print("Not Implemented")

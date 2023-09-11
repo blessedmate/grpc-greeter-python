@@ -15,7 +15,13 @@ class GreeterService(greet_pb2_grpc.GreeterServicer):
         return hello_reply
 
     def ParrotSaysHello(self, request, context):
-        return super().ParrotSaysHello(request, context)
+        print("ParrotSaysHello request made:")
+        print(request)
+        for i in range(3):
+            hello_reply = greet_pb2.HelloReply()
+            hello_reply.message = f"{request.greeting} {request.name} {i+1}"
+            yield hello_reply
+            time.sleep(2)
 
     def ChattyClientSaysHello(self, request_iterator, context):
         return super().ChattyClientSaysHello(request_iterator, context)
